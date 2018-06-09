@@ -1,0 +1,15 @@
+services:
+    meis2m.aafs.controller:
+        class: meis2m\aafs\controller\main
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+    meis2m.aafs.listener:
+        class: meis2m\aafs\event\main_listener
+        arguments:
+            - '@controller.helper'
+            - '@template'
+        tags:
+- { name: event.listener }
