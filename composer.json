@@ -1,0 +1,35 @@
+{
+    "name": "meis2m/aafs",
+    "type": "phpbb-extension",
+    "description": "AJAX Advanced Forum Stats for phpBB ",
+    "homepage": "https://github.com/Persian-phpBB/AJAX_Advanced-Forum-Stats",
+    "version": "0.0.1",
+    "keywords": [
+        "phpbb",
+        "extension",
+    ],
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "MeisaM Nobari (meis2m)",
+            "homepage": "http://www.php-bb.ir",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "composer/installers": "~1.0",
+        "phpbb/phpbb": ">=3.1.0,<3.4"
+    },
+    "extra": {
+        "display-name": "AJAX Advanced Forum Stats",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.1.0,<3.4"
+        },
+        "version-check": {
+            "host": "",
+            "directory": "",
+            "filename": ""
+        }
+    }
+}
