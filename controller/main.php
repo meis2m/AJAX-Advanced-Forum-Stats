@@ -7,7 +7,7 @@
 *
 */
 
-namespace meis2m\affs\controller;
+namespace meis2m\aafs\controller;
 
 class main
  { 
@@ -46,7 +46,7 @@ class main
         $char_username_limit=11; //Max length (char)of username display in forum stats
 		
         global $auth, $cache, $config, $user, $db, $phpbb_root_path, $phpEx, $template;
-        $user->add_lang_ext(‘meis2m/affs’, ‘common’);
+        $user->add_lang_ext(‘meis2m/aafs’, ‘common’);
 		
         $forum_array = array_unique(array_keys($auth->acl_getf('!f_read', true)));
         $sql_and = '';

@@ -4,10 +4,6 @@
     "description": "AJAX Advanced Forum Stats for phpBB ",
     "homepage": "https://github.com/Persian-phpBB/AJAX_Advanced-Forum-Stats",
     "version": "0.0.1",
-    "keywords": [
-        "phpbb",
-        "extension",
-    ],
     "license": "GPL-2.0",
     "authors": [
         {
