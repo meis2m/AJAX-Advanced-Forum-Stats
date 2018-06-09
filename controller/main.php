@@ -243,7 +243,7 @@ class main
 
 
         $template->set_filenames(array(
-                'body' => 'topx_reporn.html')
+                'body' => 'advanced-forum-stats_rep.html')
         );
         page_footer();
-
+   }
