@@ -23,14 +23,18 @@ class main
 	/* @var \phpbb\user */
 	protected $user; 
 	
-        define('IN_PHPBB', true);
+   
         $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
         $phpEx = substr(strrchr(__FILE__, '.'), 1);
 
         include($phpbb_root_path . 'common.' . $phpEx);
+		
         include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+		
         $user->session_begin();
+		
         $auth->acl($user->data);
+		
         $user->setup('common');
 
         $mode=request_var('mode','');
@@ -42,7 +46,7 @@ class main
         $char_username_limit=11; //Max length (char)of username display in forum stats
 		
         global $auth, $cache, $config, $user, $db, $phpbb_root_path, $phpEx, $template;
-        $user->add_lang('mods/topX');
+        $user->add_lang_ext(‘meis2m/affs’, ‘common’);
 		
         $forum_array = array_unique(array_keys($auth->acl_getf('!f_read', true)));
         $sql_and = '';
