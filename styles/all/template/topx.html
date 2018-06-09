@@ -49,7 +49,7 @@ function top_users_stats(value){
 	xmlHttp1.open("POST", './topx.php', true);
 	xmlHttp1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xmlHttp1.send(param);
-	document.getElementById('top_user_list').innerHTML = '<img src="{T_THEME_PATH}/images/13x13progress.gif" style="margin-top: 140px; margin-left: 80px;"/>';
+	document.getElementById('top_user_list').innerHTML = '<img src="./images/13x13progress.gif" style="margin-top: 140px; margin-left: 80px;"/>';
 }
 function top_posts_stats(value){
 	xmlHttp2 = http_object();
@@ -58,7 +58,7 @@ function top_posts_stats(value){
 	xmlHttp2.open("POST", './topx.php', true);
 	xmlHttp2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xmlHttp2.send(param);
-	document.getElementById('top_post_list').innerHTML = '<img src="{T_THEME_PATH}/images/13x13progress.gif" style="margin-top: 140px; margin-left: 48%;"/>';
+	document.getElementById('top_post_list').innerHTML = '<img src="./images/13x13progress.gif" style="margin-top: 140px; margin-left: 48%;"/>';
 }
 function top_users_return(){
 	if (xmlHttp1.readyState == 4)
@@ -107,7 +107,7 @@ var offsetdivfrompointerX = 10;
 var offsetdivfrompointerY = 14;
 
 document.write('<div id="dhtmltooltip"></div>');
-document.write('<img id="dhtmlpointer" src="{T_THEME_PATH}/images/tip.gif">');
+document.write('<img id="dhtmlpointer" src="./images/tip.gif">');
 
 var ie = document.all;
 var ns6 = document.getElementById && ! document.all;
@@ -195,9 +195,10 @@ function hidetip() {
 
 document.onmousemove = positiontip;
 </script>
-<!--script src="{T_THEME_PATH}/ShowTooltip.js"></script-->
 
-<link rel="stylesheet" href="{T_THEME_PATH}/vietvbb_topx.css" type="text/css" />
+<!-- INCLUDEJS @meis2m_affs/js/jquery-ui.js -->
+<!-- INCLUDECSS @meis2m_affs/advanced-forum-stats.css -->
+
 <table id="statstable" class="latest-posts" cellspacing="0" style="" >
 	<tr align="top"><th colspan="2" align="left">{L_TFORUM_STATS}</th></tr>
 	<tr>
@@ -210,9 +211,9 @@ document.onmousemove = positiontip;
 					<option value="topthanked">{L_TTOP_THANKED}</option>
 					<option value="topposter">{L_TTOP_POSTER}</option>
 					</select></span>
-				</li></ul><table><tr style="vertical-align:top;"><td><img src="{T_THEME_PATH}/images/list.gif" /></td><td background="{T_THEME_PATH}/images/listbg.gif" width="100%" style="border-top: 0px none; padding: 0px; line-height: 20px; background-repeat: repeat;">
+				</li></ul><table><tr style="vertical-align:top;"><td><img src="./images/list.gif" /></td><td background="./images/listbg.gif" width="100%" style="border-top: 0px none; padding: 0px; line-height: 20px; background-repeat: repeat;">
 				<div id="top_user_list" style="height:308px;">
-					<img src="{T_THEME_PATH}/images/13x13progress.gif" style="margin-top: 140px; margin-left: 80px;"/>
+					<img src="./images/13x13progress.gif" style="margin-top: 140px; margin-left: 80px;"/>
 				</div></td></tr></table>
 			</div>
 		</td>
@@ -223,9 +224,9 @@ document.onmousemove = positiontip;
 					<li id="topx_mostview" class=""><span style="padding: 0px 8px;"><a onclick="return false;" href="#">{L_TMOST_VIEW}</a></span></li>
 					<li id="topx_hotesttopic" class=""><span style="padding: 0px 8px;"><a onclick="return false;" href="#">{L_THOT_TOPIC}</a></span></li>
 				</ul>
-				<table><tr style="vertical-align:top;"><td><img src="{T_THEME_PATH}/images/list.gif" /></td><td background="{T_THEME_PATH}/images/listbg.gif" width="100%" style="border-top: 0px none; padding: 0px; line-height: 20px; background-repeat: repeat;">
+				<table><tr style="vertical-align:top;"><td><img src="./images/list.gif" /></td><td background="./images/listbg.gif" width="100%" style="border-top: 0px none; padding: 0px; line-height: 20px; background-repeat: repeat;">
 				<div id="top_post_list" style="height:308px;">
-					<img src="{T_THEME_PATH}/images/13x13progress.gif" style="margin-top: 140px; margin-left: 48%;"/>
+					<img src="./images/13x13progress.gif" style="margin-top: 140px; margin-left: 48%;"/>
 				</div></td></tr></table>
 			</div>
 		</td>
