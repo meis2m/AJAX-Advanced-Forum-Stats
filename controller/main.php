@@ -41,9 +41,14 @@ class main
 		
         //Config
         $col_num=15; //Number of rows that will be displayed on index
+
         $cache_time=10; //Time for update from forum table when user request (when have too many connections, it's usefull)
+ 
         $char_limit=50; //Max char of topic title that will display on forum stats
+
         $char_username_limit=11; //Max length (char)of username display in forum stats
+		
+		
 		
         global $auth, $cache, $config, $user, $db, $phpbb_root_path, $phpEx, $template;
         $user->add_lang_ext(‘meis2m/aafs’, ‘common’);
@@ -243,7 +248,7 @@ class main
 
 
         $template->set_filenames(array(
-                'body' => 'advanced-forum-stats_rep.html')
+                'body' => 'ext/meis2m/aafs/styles/all/template/advanced-forum-stats_rep.html')
         );
-        page_footer();
+       
    }
