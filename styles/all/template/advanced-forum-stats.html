@@ -46,7 +46,7 @@ function top_users_stats(value){
 	xmlHttp1 = http_object();
 	param='&mode='+value;
 	xmlHttp1.onreadystatechange = top_users_return;
-	xmlHttp1.open("POST", './topx.php', true);
+	xmlHttp1.open("POST", './ext/meis2m/aafs/controller/main.php', true);
 	xmlHttp1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xmlHttp1.send(param);
 	document.getElementById('top_user_list').innerHTML = '<img src="./ext/meis2m/aafs/styles/all/theme/images/13x13progress.gif" style="margin-top: 140px; margin-left: 80px;"/>';
@@ -55,7 +55,7 @@ function top_posts_stats(value){
 	xmlHttp2 = http_object();
 	param='&mode='+value;
 	xmlHttp2.onreadystatechange = top_posts_return;
-	xmlHttp2.open("POST", './topx.php', true);
+	xmlHttp2.open("POST", './ext/meis2m/aafs/controller/main.php', true); 
 	xmlHttp2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xmlHttp2.send(param);
 	document.getElementById('top_post_list').innerHTML = '<img src="./ext/meis2m/aafs/styles/all/theme/images/13x13progress.gif" style="margin-top: 140px; margin-left: 48%;"/>';
