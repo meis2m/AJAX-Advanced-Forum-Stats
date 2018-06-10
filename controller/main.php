@@ -6,39 +6,39 @@
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
-
 namespace meis2m\aafs\controller;
 
 class main
- { 
- 	/* @var \phpbb\config\config */
-	protected $config;
-	
-	/* @var \phpbb\controller\helper */
-	protected $helper;
-	
-	/* @var \phpbb\template\template */
-	protected $template;
-	
-	/* @var \phpbb\user */
-	protected $user; 
-	
-   
-        $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
-        $phpEx = substr(strrchr(__FILE__, '.'), 1);
+{
+    /* @var \phpbb\config\config */
+    protected $config;
 
-        include($phpbb_root_path . 'common.' . $phpEx);
-		
-        include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
-		
-        $user->session_begin();
-		
-        $auth->acl($user->data);
-		
-        $user->setup('common');
+    /* @var \phpbb\controller\helper */
+    protected $helper;
 
-        $mode=request_var('mode','');
-		
+    /* @var \phpbb\template\template */
+    protected $template;
+
+    /* @var \phpbb\user */
+    protected $user;
+
+    /**
+     * Constructor
+     *
+     * @param \phpbb\config\config      $config
+     * @param \phpbb\controller\helper  $helper
+     * @param \phpbb\template\template  $template
+     * @param \phpbb\user               $user
+     */
+    public function __construct(\phpbb\config\config $config, \phpbb\controller\helper $helper, \phpbb\template\template $template, \phpbb\user $user)
+    {
+        $this->config   = $config;
+        $this->helper   = $helper;
+        $this->template = $template;
+        $this->user     = $user;
+    }
+    public function handle()
+    {
         //Config
         $col_num=15; //Number of rows that will be displayed on index
 
@@ -82,48 +82,49 @@ class main
         }
 		
         if(!$tiep){
-                        $sql_ary = array(
-                                'SELECT'	=> $sql_select,
-                                'FROM'		=> array(TOPICS_TABLE => 't', POSTS_TABLE => 'p', FORUMS_TABLE => 'f'),
-                                'LEFT_JOIN'	=> array(
-                                        array(
-                                                'FROM'	=> array(USERS_TABLE => 'u'),
-                                                'ON'	=> 'p.poster_id = u.user_id',
-                                        ),
-                                ),
-                                'WHERE'		=> 'p.topic_id = t.topic_id
-                                           AND t.forum_id = f.forum_id
-                                           AND p.post_approved = 1
-                                           AND t.topic_moved_id = 0' . $sql_and,
-                                'GROUP_BY'	=> 't.topic_id',
-                                'ORDER_BY'	=> $sql_order,
-                        );
+     $sql_ary = array(
+                'SELECT'	=> $sql_select,
+                'FROM'		=> array(TOPICS_TABLE => 't', POSTS_TABLE => 'p', FORUMS_TABLE => 'f'),
+                'LEFT_JOIN'	=> array(
+                        array(
+                                'FROM'	=> array(USERS_TABLE => 'u'),
+                                'ON'	=> 'p.poster_id = u.user_id',
+                        ),
+                ),
+                'WHERE'		=> 'p.topic_id = t.topic_id
+                           AND t.forum_id = f.forum_id
+                           AND p.post_approved = 1
+                           AND t.topic_moved_id = 0' . $sql_and,
+                'GROUP_BY'	=> 't.topic_id',
+                'ORDER_BY'	=> $sql_order,
+        );
 
-                        $result = $db->sql_query_limit($db->sql_build_query('SELECT', $sql_ary), $col_num);
-                        while( $row = $db->sql_fetchrow($result) )
-                        {
-                                $shortusername=utf8_strlen($row['topic_last_poster_name'])>$char_username_limit?utf8_substr($row['topic_last_poster_name'],0,$char_username_limit-3).'...':$row['topic_last_poster_name'];
-                                $username_string = get_username_string('full', $row['topic_last_poster_id'], $shortusername, $row['topic_last_poster_colour']);
-                                $view_topic_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", 'f=' . $row['forum_id'] . '&amp;p=' . $row['topic_last_post_id'] . '#p' . $row['topic_last_post_id']);
-                                $topic_title = censor_text($row['topic_title']);
-                                $latest_poster=get_username_string('full', $row['topic_last_poster_id'], $row['topic_last_poster_name'], $row['topic_last_poster_colour']);
-                                $template->assign_block_vars('topic_rows',array(
-                                        'LATEST_POSTER'	=> $latest_poster,
-                                        'LAST_POSTER_S'	=> $username_string,
-                                        'POST_TIME'	=> $user->format_date($row['topic_time']),
-                                        'FORUM_NAME'	=> $row['forum_name'],
-                                        'LATEST_POST_TIME'	=> $user->format_date($row['post_time']),
-                                        'VIEWS'			=> $row['topic_views'],
-                                        'REPLIES'		=> $row['topic_replies'],
-                                        'U_TOPIC' 		=> $view_topic_url,
-                                        'USERNAME_FULL'	=> get_username_string('full', $row['user_id'], $row['username'], $row['user_colour']),
-                                        'TOPIC_TITLE' 	=> utf8_strlen($topic_title)>$char_limit?utf8_substr($topic_title,0,$char_limit-3).'...':$topic_title,
-                                        'TIP_TOPIC_TITLE' => $topic_title,
-                                        'NEWPOST_MODE'	=> $mode=='topx_newpost' ? true:false,
-                                        'MOSTVIEW_MODE'	=> $mode=='topx_mostview' ? true:false,
-                                        'HOTEST_MODE'	=> $mode=='topx_hotesttopic' ? true:false,
-                                )); //$user->lang['IN'] .
-                        }
+        $result = $db->sql_query_limit($db->sql_build_query('SELECT', $sql_ary), $col_num);
+                        
+        while( $row = $db->sql_fetchrow($result) )
+        {
+                $shortusername=utf8_strlen($row['topic_last_poster_name'])>$char_username_limit?utf8_substr($row['topic_last_poster_name'],0,$char_username_limit-3).'...':$row['topic_last_poster_name'];
+                $username_string = get_username_string('full', $row['topic_last_poster_id'], $shortusername, $row['topic_last_poster_colour']);
+                $view_topic_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", 'f=' . $row['forum_id'] . '&amp;p=' . $row['topic_last_post_id'] . '#p' . $row['topic_last_post_id']);
+                $topic_title = censor_text($row['topic_title']);
+                $latest_poster=get_username_string('full', $row['topic_last_poster_id'], $row['topic_last_poster_name'], $row['topic_last_poster_colour']);
+                $template->assign_block_vars('topic_rows',array(
+                        'LATEST_POSTER'	=> $latest_poster,
+                        'LAST_POSTER_S'	=> $username_string,
+                        'POST_TIME'	=> $user->format_date($row['topic_time']),
+                        'FORUM_NAME'	=> $row['forum_name'],
+                        'LATEST_POST_TIME'	=> $user->format_date($row['post_time']),
+                        'VIEWS'			=> $row['topic_views'],
+                        'REPLIES'		=> $row['topic_replies'],
+                        'U_TOPIC' 		=> $view_topic_url,
+                        'USERNAME_FULL'	=> get_username_string('full', $row['user_id'], $row['username'], $row['user_colour']),
+                        'TOPIC_TITLE' 	=> utf8_strlen($topic_title)>$char_limit?utf8_substr($topic_title,0,$char_limit-3).'...':$topic_title,
+                        'TIP_TOPIC_TITLE' => $topic_title,
+                        'NEWPOST_MODE'	=> $mode=='topx_newpost' ? true:false,
+                        'MOSTVIEW_MODE'	=> $mode=='topx_mostview' ? true:false,
+                        'HOTEST_MODE'	=> $mode=='topx_hotesttopic' ? true:false,
+                )); //$user->lang['IN'] .
+        }
 
                         $db->sql_freeresult($result);
         }else{
@@ -250,5 +251,6 @@ class main
         $template->set_filenames(array(
                 'body' => 'ext/meis2m/aafs/styles/all/template/advanced-forum-stats_rep.html')
         );
-       
-   }
+    }
+}
+    
