@@ -51,7 +51,7 @@ class main
 		
 		
         global $auth, $cache, $config, $user, $db, $phpbb_root_path, $phpEx, $template;
-        $user->add_lang_ext(‘meis2m/aafs’, ‘common’);
+ 
 		
         $forum_array = array_unique(array_keys($auth->acl_getf('!f_read', true)));
         $sql_and = '';
