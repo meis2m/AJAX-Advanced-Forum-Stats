@@ -1,0 +1,3 @@
+mais2m_aafs_stats_controller:
+    path: /stats/{mode}
+    defaults: { _controller:meis2m.aafs.controller:handle }

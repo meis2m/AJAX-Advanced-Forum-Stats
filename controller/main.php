@@ -36,8 +36,9 @@ class main
         $this->helper   = $helper;
         $this->template = $template;
         $this->user     = $user;
+		$this->request	= $request;
     }
-    public function handle()
+    public function handle($mode = '')
     {
         //Config
         $col_num=15; //Number of rows that will be displayed on index
@@ -48,9 +49,7 @@ class main
 
         $char_username_limit=11; //Max length (char)of username display in forum stats
 		
-		
-		
-        global $auth, $cache, $config, $user, $db, $phpbb_root_path, $phpEx, $template;
+        global $auth, $cache, $config, $user, $db, $phpbb_root_path, $phpEx;
  
 		
         $forum_array = array_unique(array_keys($auth->acl_getf('!f_read', true)));
@@ -108,7 +107,7 @@ class main
                 $view_topic_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", 'f=' . $row['forum_id'] . '&amp;p=' . $row['topic_last_post_id'] . '#p' . $row['topic_last_post_id']);
                 $topic_title = censor_text($row['topic_title']);
                 $latest_poster=get_username_string('full', $row['topic_last_poster_id'], $row['topic_last_poster_name'], $row['topic_last_poster_colour']);
-                $template->assign_block_vars('topic_rows',array(
+                $this->template->assign_block_vars('topic_rows',array(
                         'LATEST_POSTER'	=> $latest_poster,
                         'LAST_POSTER_S'	=> $username_string,
                         'POST_TIME'	=> $user->format_date($row['topic_time']),
@@ -162,7 +161,7 @@ class main
                                         $shortusername=utf8_strlen($row['username'])>$char_username_limit?utf8_substr($row['username'],0,$char_username_limit-3).'...':$row['username'];
                                         $username_string = get_username_string('full', $row['user_id'], $shortusername, $row['user_colour']);
 
-                                        $template->assign_block_vars('topx_newest',array(
+                                        $this->template->assign_block_vars('topx_newest',array(
                                                 'REG_DATE'			=> date('d/m/y',$row['user_regdate']),
                                                 'USERNAME_FULL'		=> $username_string
                                                 ));
@@ -199,7 +198,7 @@ class main
                                         $shortusername=utf8_strlen($row['username'])>$char_username_limit?utf8_substr($row['username'],0,$char_username_limit-3).'...':$row['username'];
                                         $username_string = get_username_string('full', $row['user_id'], $shortusername, $row['user_colour']);
 
-                                        $template->assign_block_vars('topx_active',array(
+                                        $this->template->assign_block_vars('topx_active',array(
                                                 'S_SEARCH_ACTION'	=> append_sid("{$phpbb_root_path}search.$phpEx", 'author_id=' . $row['user_id'] . '&amp;sr=posts'),
                                                 'POSTS' 			=> $row['user_posts'],
                                                 'USERNAME_FULL'		=> $username_string
@@ -237,7 +236,7 @@ class main
                                         $shortusername=utf8_strlen($row['username'])>$char_username_limit?utf8_substr($row['username'],0,$char_username_limit-3).'...':$row['username'];
                                         $username_string = get_username_string('full', $row['user_id'], $shortusername, $row['user_colour']);
 
-                                        $template->assign_block_vars('topx_thanked',array(
+                                        $this->template->assign_block_vars('topx_thanked',array(
                                                 'S_SEARCH_ACTION'	=> append_sid("{$phpbb_root_path}search.$phpEx", 'author_id=' . $row['user_id'] . '&amp;sr=posts'),
                                                 'THANKED' 			=> $row['user_thanked'],
                                                 'USERNAME_FULL'		=> $username_string
@@ -247,10 +246,7 @@ class main
                 }
         }
 
-
-        $template->set_filenames(array(
-                'body' => 'ext/meis2m/aafs/styles/all/template/advanced-forum-stats_rep.html')
-        );
+		return $this->helper->render('advanced-forum-stats_rep.html', 'page_title');
     }
 }
     
